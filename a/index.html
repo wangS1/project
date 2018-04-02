@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>$Title$</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta name="format-detection" content="telephone=no, email=no"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        #box{
+            background:#61A1BB;
+            width:600px;
+            height:650px;
+            margin:auto;
+            position: absolute;
+            left: 0;
+            right: 0;
+            top:0;
+            bottom:0;
+        }
+        li{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height:65px;
+            color:#fff;
+            width:80%;
+            margin: 1rem auto;
+        }
+        h2{
+            padding:0 1rem;
+        }
+        #zj{
+            display: flex;
+            justify-content: space-between;
+            width:80%;
+            color:#fff;
+            margin: 0 auto;
+        }
+        .active{
+            background:#8EC06D;
+        }
+        .isActive{
+            background: #ff6ec7;
+        }
+    </style>
+</head>
+<body>
+    <div id="box">
+        <h1 style="margin:auto;padding:2rem 2rem;text-align: center;color:#fff;">WEB</h1>
+        <ul>
+            <li v-for="(item,index) in list"
+                @click="btnStyle(index)"
+                :class="{'active':item.show==false,'isActive':item.show==true}">
+                <h2>{{item.name}}</h2>
+                <h2>{{item.press}}</h2>
+            </li>
+            <li style="height:0.5px;border: 1px solid #fff;background: none"></li>
+        </ul>
+        <div id="zj"><h2>Total:</h2><h2>${{msg}}.00</h2></div>
+    </div>
+<script src="vue.js"></script>
+<script>
+ new Vue({
+    el: '#box',
+    data: {
+      list: [
+        {name: "Web Development", press: 300.00,show:true},
+        {name: "Design", press: 400.00,show:true},
+        {name: "Integration", press: 250.00,show:true},
+        {name: "Training", press: 220.00,show:true}
+      ],
+      zj:0,
+    },
+   computed:{
+      msg(){
+        let x = 0;
+        this.list.map(val=>{
+          if(val.show == false){
+            x+=val.press
+            console.log(x)
+          }
+        })
+        return x;
+      }
+   },
+    methods: {
+      btnStyle(index){
+//        console.log(index)
+        this.list[index].show = !this.list[index].show;
+//        if(this.list[index].show==true){
+//          this.zj -=this.list[index].press
+//        }else{
+//          this.zj +=this.list[index].press
+//        }
+      }
+    }
+  })
+
+</script>
+</body>
+</html>
